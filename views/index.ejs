@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Chat App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      padding: 8px;
+      margin-bottom: 10px;
+      background-color: #f4f4f4;
+    }
+
+    #messages {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <ul id="messages">
+    <% messages.forEach(function(i) { 
+      if (i.from == currentId && i.to == clickedUserId) { %>
+        <li>
+          <%= i.message %>
+        </li>
+      <% } 
+    }); %>
+  </ul>
+
+  <form id="form" action="">
+    <input id="input" autocomplete="off" placeholder="Type a message..." /><button>Send</button>
+  </form>
+
+  <a href="#" onclick="del_cookie()">Log Out</a>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"
+    integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO"
+    crossorigin="anonymous"></script>
+  <script>
+    const socket = io();
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const message = input.value.trim();
+      if (message) {
+        socket.emit('chat message', message);
+        input.value = ''; // Reset input field after sending
+      }
+    });
+
+    socket.on('chat message', (msg) => {
+      console.log('Received message:', msg);
+      const item = document.createElement('li');
+      item.textContent = msg;
+      document.getElementById('messages').appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight); // Scroll to bottom
+    });
+
+    const del_cookie = () => {
+      window.location.href = '/logout'; // Ensure logout route matches server configuration
+    }
+  </script>
+</body>
+
+</html>

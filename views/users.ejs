@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+</head>
+
+<body>
+    <ul>
+        <% user.forEach((u) => { %>
+            <% if (u._id.toString() !== id.toString()) { %>
+              <li onclick="sendId('<%= u._id %>')">
+                <%= u.name %>
+              </li>
+            <% } %>
+          <% }) %>
+    </ul>
+
+
+    <script>
+        function sendId(id) {
+            window.location.href = "/users/" + id;
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signup</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        .signup{
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Signup</h1>
+    <form action="/signup" class="signup" method="post">
+        <input type="text" placeholder="name" name="username" required>
+        <input type="email" placeholder="email" name="email" required>
+        <input type="text" placeholder="password" name="password" required>
+        <button type="submit">signup</button>
+    </form>
+    
+</body>
+</html>
